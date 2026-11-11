@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مريومتي ❤️</title>
+    <style>
+        :root {
+            --primary: #9d0208;
+            --bg-gradient: linear-gradient(135deg, #6a040f, #9d0208, #d00000);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-color: #590d22;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg-gradient);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            color: var(--text-color);
+            width: 100%;
+            height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        h2 { margin-bottom: 20px; font-size: 22px; }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ffb3c1;
+            border-radius: 10px;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+        }
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .hidden-screen { display: none; }
+        .photo-frame {
+            width: 100%;
+            height: 320px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+            background: #eee;
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* شريط التنقل السفلي الأربعة خانات */
+        .nav-bar {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .nav-item {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: centerc;
+            width: auto;
+            padding: 0 10px;
+        }
+        .nav-item span { font-size: 18px; margin-bottom: 3px; }
+        .error-msg { color: #d00000; font-size: 14px; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- شاشة الباسورد -->
+        <div class="card" id="lock-screen">
+            <h2>اكتبي الباسورد يا صغنونتي ❤️</h2>
+            <input type="password" id="passcode" placeholder="أدخل الرمز سري...">
+            <button onclick="checkPassword()">دخول</button>
+            <div class="error-msg" id="error">الباسورد غلط يا حب! جربي تاني 🥺</div>
+        </div>
+
+        <!-- 1. الرئيسية -->
+        <div class="card hidden-screen" id="screen-home">
+            <h2>مريومتي ❤️</h2>
+            <p style="font-size: 18px; font-weight: bold; line-height: 1.6;">أنتِ أجمل حاجة حصلت في حياتي كلها يا رب نبدي سوا للأبد ✨</p>
+        </div>
+
+        <!-- 2. صورة -->
+        <div class="card hidden-screen" id="screen-photo">
+            <h2>صغنونتي ✨</h2>
+            <div class="photo-frame">
+                <img src="mariomty.jpg" alt="صغنونتي">
+            </div>
+            <p style="font-size: 16px; font-weight: bold;">أحلى صغنونتي في الدنيا كلها ❤️</p>
+        </div>
+
+        <!-- 3. للأبد -->
+        <div class="card hidden-screen" id="screen-forever">
+            <h2>لِلأبد مع بعض ♾️</h2>
+            <p style="font-size: 17px; font-weight: bold; line-height: 1.6;">مهما السنين عدت، هفضلي جانبي ومعايا طول العمر يا احلى مريومة 💕</p>
+        </div>
+
+        <!-- 4. رسالة -->
+        <div class="card hidden-screen" id="screen-msg">
+            <h2>رسالة ليكِ 💌</h2>
+            <p style="font-size: 16px; font-weight: bold; line-height: 1.6;">بحبك قد الدنيا دي كلها، وربنا يديمك ليا نعمة في حياتي يا أجمل هندسة في الكون 🥰</p>
+        </div>
+
+        <!-- شريط التنقل السفلي (الأربع خانات) -->
+        <div class="nav-bar hidden-screen" id="nav-bar">
+            <button class="nav-item" onclick="switchScreen('home')"><span>🏠</span>الرئيسية</button>
+            <button class="nav-item" onclick="switchScreen('photo')"><span>🖼️</span>صورة</button>
+            <button class="nav-item" onclick="switchScreen('forever')"><span>♾️</span>لِلأبد</button>
+            <button class="nav-item" onclick="switchScreen('msg')"><span>💌</span>رسالة</button>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const pass = document.getElementById('passcode').value;
+            if (pass === '2312') {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('screen-home').style.display = 'flex';
+                document.getElementById('nav-bar').style.display = 'flex';
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        function switchScreen(screenName) {
+            document.getElementById('screen-home').style.display = 'none';
+            document.getElementById('screen-photo').style.display = 'none';
+            document.getElementById('screen-forever').style.display = 'none';
+            document.getElementById('screen-msg').style.display = 'none';
+
+            if (screenName === 'home') document.getElementById('screen-home').style.display = 'flex';
+            if (screenName === 'photo') document.getElementById('screen-photo').style.display = 'flex';
+            if (screenName === 'forever') document.getElementById('screen-forever').style.display = 'flex';
+            if (screenName === 'msg') document.getElementById('screen-msg').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
